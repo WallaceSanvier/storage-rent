@@ -52,67 +52,66 @@ const monthlyRentRecords: MonthlyRentRecord[] = [];
   let updatedMonthlyRent: number = baseMonthlyRent;
   let monthsPassed: number = 0;
   let isFirstMonth: boolean = false;
-  
-   while (currentDate <= windowEndDate) {
+
+   while (windowStartDate <= windowEndDate) {
    isFirstMonth = false;
-  
-  if (currentDate.getFullYear() === leaseStartDate.getFullYear() &&
-      currentDate.getMonth() === leaseStartDate.getMonth()) {
+  //2
+  if (windowStartDate.getFullYear() === leaseStartDate.getFullYear() &&
+      windowStartDate.getMonth() === leaseStartDate.getMonth()) {
       monthsPassed = 0;
       isFirstMonth = true;
   }
 
   
-  if (currentDate >= leaseStartDate && monthsPassed === rentRateChangeFrequency && rentChangeRate > 0) {
+  if (windowStartDate >= leaseStartDate && monthsPassed === rentRateChangeFrequency && rentChangeRate > 0) {
     updatedMonthlyRent = Number(
       calculateNewMonthlyRent(updatedMonthlyRent, rentChangeRate).toFixed(2)
     );
     monthsPassed = 0;
   }
 
-  if (currentDate < leaseStartDate && monthsPassed === rentRateChangeFrequency && rentChangeRate < 0) {
+  if (windowStartDate < leaseStartDate && monthsPassed === rentRateChangeFrequency && rentChangeRate < 0) {
     updatedMonthlyRent = Number(
       calculateNewMonthlyRent(updatedMonthlyRent, rentChangeRate).toFixed(2)
     );
     monthsPassed = 0;
   }
-  
+
     let mountRent = updatedMonthlyRent;
-   
+
     if (isFirstMonth) {
 
       const startDay = leaseStartDate.getDate();
       const dueDay = dayOfMonthRentDue;
 
+      
       if (startDay < dueDay) {
-        
-        const daysProportion = (dueDay - startDay) / 30;
-        mountRent = Number((updatedMonthlyRent * daysProportion).toFixed(2));
 
+        const daysProportion = (dueDay - startDay) / 30;
+
+        mountRent = Number((updatedMonthlyRent * daysProportion).toFixed(2));
       } else if (startDay > dueDay) {
-        
+
         const daysProportion = ((30 - startDay + dueDay + 30) % 30) / 30 || 1 / 30;
         mountRent = Number((updatedMonthlyRent * daysProportion).toFixed(2));
-
       } 
-   
     }
 
    const record: MonthlyRentRecord = {
-   vacancy: !isFirstMonth && currentDate < leaseStartDate,
+   vacancy: !isFirstMonth && windowStartDate < leaseStartDate,
    rentAmount: mountRent,
    rentDueDate: calculateDueDate(
-   currentDate.getFullYear(),
-   currentDate.getMonth(),
+   windowStartDate.getFullYear(),
+   windowStartDate.getMonth(),
    dayOfMonthRentDue
   ),
   };
 
-  monthlyRentRecords.push(record);
+    monthlyRentRecords.push(record);
 
-  currentDate.setDate(1);
-  currentDate.setMonth(currentDate.getMonth() + 1);
-  monthsPassed += 1;
+    windowStartDate.setDate(1);
+    windowStartDate.setMonth(windowStartDate.getMonth() + 1);
+    monthsPassed += 1;
 
   }
 
