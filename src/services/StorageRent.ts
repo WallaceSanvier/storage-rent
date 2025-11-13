@@ -52,10 +52,10 @@ const monthlyRentRecords: MonthlyRentRecord[] = [];
   let updatedMonthlyRent: number = baseMonthlyRent;
   let monthsPassed: number = 0;
   let isFirstMonth: boolean = false;
-   //1
+  
    while (currentDate <= windowEndDate) {
    isFirstMonth = false;
-  //2
+  
   if (currentDate.getFullYear() === leaseStartDate.getFullYear() &&
       currentDate.getMonth() === leaseStartDate.getMonth()) {
       monthsPassed = 0;
@@ -76,26 +76,24 @@ const monthlyRentRecords: MonthlyRentRecord[] = [];
     );
     monthsPassed = 0;
   }
-
+  
     let mountRent = updatedMonthlyRent;
-    //3 Here I calculate the number of days the tenant occupies the self storage in the first month.
+   
     if (isFirstMonth) {
 
       const startDay = leaseStartDate.getDate();
       const dueDay = dayOfMonthRentDue;
 
-      
       if (startDay < dueDay) {
-        //none of these rules apply…"
+        
         const daysProportion = (dueDay - startDay) / 30;
-       // toFixed(2) to rounds the value to two decimal places.”
-      // It returns a string,
         mountRent = Number((updatedMonthlyRent * daysProportion).toFixed(2));
+
       } else if (startDay > dueDay) {
         
-        //"I used a similar formula in several GoiásPrev systems to calculate the number of days worked by retirees. whta change was" ✅
         const daysProportion = ((30 - startDay + dueDay + 30) % 30) / 30 || 1 / 30;
         mountRent = Number((updatedMonthlyRent * daysProportion).toFixed(2));
+
       } 
    
     }
@@ -110,11 +108,11 @@ const monthlyRentRecords: MonthlyRentRecord[] = [];
   ),
   };
 
-    monthlyRentRecords.push(record);
+  monthlyRentRecords.push(record);
 
-    currentDate.setDate(1);
-    currentDate.setMonth(currentDate.getMonth() + 1);
-    monthsPassed += 1;
+  currentDate.setDate(1);
+  currentDate.setMonth(currentDate.getMonth() + 1);
+  monthsPassed += 1;
 
   }
 
