@@ -44,14 +44,10 @@ const monthlyRentRecords: MonthlyRentRecord[] = [];
 
   validateDates(leaseStartDate,windowStartDate,windowEndDate)
 
-  windowStartDate = new Date(windowStartDate);
-  windowEndDate = new Date(windowEndDate);
-  leaseStartDate = new Date(leaseStartDate);
-
   let updatedMonthlyRent: number = baseMonthlyRent;
   let monthsPassed: number = 0;
   let isFirstMonth: boolean = false;
-
+  
    while (windowStartDate <= windowEndDate) {
    isFirstMonth = false;
   
