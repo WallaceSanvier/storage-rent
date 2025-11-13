@@ -95,9 +95,8 @@ const monthlyRentRecords: MonthlyRentRecord[] = [];
         mountRent = Number((baseMonthlyRent * daysProportion).toFixed(2));
       }
 
-      updatedMonthlyRent = baseMonthlyRent;// this my first doubt
+      updatedMonthlyRent = baseMonthlyRent;
     }
-
 
    const record: MonthlyRentRecord = {
    vacancy: !isFirstMonth && currentDate < leaseStartDate,
