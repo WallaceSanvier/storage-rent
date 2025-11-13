@@ -48,14 +48,13 @@ const monthlyRentRecords: MonthlyRentRecord[] = [];
   windowEndDate = new Date(windowEndDate);
   leaseStartDate = new Date(leaseStartDate);
 
-  let currentDate = new Date(windowStartDate);
   let updatedMonthlyRent: number = baseMonthlyRent;
   let monthsPassed: number = 0;
   let isFirstMonth: boolean = false;
 
    while (windowStartDate <= windowEndDate) {
    isFirstMonth = false;
-  //2
+  
   if (windowStartDate.getFullYear() === leaseStartDate.getFullYear() &&
       windowStartDate.getMonth() === leaseStartDate.getMonth()) {
       monthsPassed = 0;
