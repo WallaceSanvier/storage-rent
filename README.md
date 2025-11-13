@@ -1,21 +1,18 @@
-Projeto Storage Rent
+Storage Rent Project
 
-Esse projeto calcula o valor do aluguel mensal de unidades de armazenamento, considerando prorrateamento do primeiro mês e possíveis ajustes no valor ao longo do tempo.
+This project calculates the monthly rental value of storage units, considering prorated charges for the first month and possible adjustments in the value over time.
 
-Instalação
+Installation
 
-Para instalar as dependências, rode:
-
+To install the dependencies, run:
 npm install
 
-Rodando o servidor
+Running the Server
 
-Para iniciar o servidor em modo de desenvolvimento:
-
+To start the server in development mode:
 npm run dev
 
-Testes
+Tests
 
-Os testes são feitos com Jest. Para rodar todos os testes, use:
-
+Tests are done with Jest. To run all tests, use:
 npm test
